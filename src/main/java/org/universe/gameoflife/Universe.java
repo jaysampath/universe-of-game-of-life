@@ -70,11 +70,16 @@ public class Universe {
         return liveNeighboursCount;
     }
 
-    public void print() {
+    public void print(boolean useAstreikAndDotWhilePrinting) {
         System.out.println("Current state of Universe:");
         for (int i = 0; i < size; i++) {
             for (int j = 0 ; j < size; j++) {
-                System.out.print(grid[i][j] + " ");
+                if (useAstreikAndDotWhilePrinting) {
+                    System.out.print((grid[i][j] == 1 ? '*' : '.'));
+                } else {
+                    System.out.print(grid[i][j] + " ");
+                }
+
             }
             System.out.println();
         }
