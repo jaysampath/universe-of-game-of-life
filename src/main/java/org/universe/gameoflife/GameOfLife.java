@@ -1,10 +1,20 @@
 package org.universe.gameoflife;
 
 public class GameOfLife {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         int size = 5;
+        int generations = 5;
 
         Universe universe = new Universe(size);
-        universe.printGrid();
+
+
+        for (int gen = 1; gen <= generations; gen++) {
+            System.out.println("Generation- "+ gen + ":");
+            universe.print();
+            universe.nextGeneration();
+
+            //Add delay to visualize logs in the console
+            Thread.sleep(500);
+        }
     }
 }

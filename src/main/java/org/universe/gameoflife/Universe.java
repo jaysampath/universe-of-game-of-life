@@ -25,10 +25,33 @@ public class Universe {
         grid[mid + 1][mid + 1] = 1;
     }
 
-    private void nextGeneration() {
+    public void nextGeneration() {
+        //First Pass
+        //Mark alive -> dead as 2, dead -> alive as 3
         for (int i = 0; i < size; i++) {
             for (int j = 0; j < size; j++) {
-                int liveNeighbours
+                int liveNeighbours = countLiveNeighbours(i, j);
+                if (grid[i][j] == 1) {
+                    if (liveNeighbours < 2 || liveNeighbours > 3) {
+                        grid[i][j] = 2; // alive to dead
+                    }
+                } else if (grid[i][j] == 0) {
+                    if (liveNeighbours == 3) {
+                        grid[i][j] = 3; // dead to alive
+                    }
+                }
+            }
+        }
+
+        //second pass
+        //finalize alive and dead cells
+        for (int i = 0; i < size; i++) {
+            for (int j = 0; j < size; j++) {
+                if (grid[i][j] == 2) {
+                    grid[i][j] = 0;
+                } else if (grid[i][j] == 3) {
+                    grid[i][j] = 1;
+                }
             }
         }
     }
@@ -47,8 +70,8 @@ public class Universe {
         return liveNeighboursCount;
     }
 
-    public void printGrid() {
-        System.out.println("Current state of Grid:");
+    public void print() {
+        System.out.println("Current state of Universe:");
         for (int i = 0; i < size; i++) {
             for (int j = 0 ; j < size; j++) {
                 System.out.print(grid[i][j] + " ");
